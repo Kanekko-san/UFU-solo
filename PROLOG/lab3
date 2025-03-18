@@ -1,0 +1,100 @@
+q(a).
+q(b).
+
+or(A, B):-
+    A; B.
+and(A, B):-
+    A, B.
+not(A):-
+     A.
+
+
+
+equivalente(A, B):-
+    not(and(A,B)), or(not(A), not(B)).
+
+
+se_entao(X, Y):-
+    or(not(X), Y).
+
+se_entao(X, Y, Z):-
+    or(not(and(X, Y)), Z).
+
+
+
+
+
+
+
+
+:- op(1100, xfy, -->).
+X --> Y:-
+    se_entao(X, Y).
+
+
+
+
+
+
+member(_, []):-
+    false.
+member(E, [E|_]).
+member(E, [_|T]):-
+    member(E, T).
+
+concatena([],L,L).
+concatena([X|R],L,[X|C]) :-
+	concatena(R,L,C).
+
+adiciona(X,L,[X|L]).
+
+tira(_,[],[]).
+tira(X,[X|R],R).
+tira(X,[Y|R],[Y|R1]) :-
+  tira(X,R,R1).
+
+adiciona_fim(X,L,NL) :-
+  concatena(L,[X],NL).
+
+
+
+
+
+
+:- op(500, xfy, existe_em).
+_ existe_em []:-
+    false.
+E existe_em [E|_].
+E existe_em [_|T]:-
+    E existe_em T.
+
+
+
+:- op(560, fy, concatena).
+:- op(500, xfy, gera).
+:- op(550, yfx, e).
+
+concatena X:- X.
+X gera X.
+
+
+
+
+concatena L1 e [] gera L1.
+concatena [] e L2 gera L2.
+
+concatena [H|T] e L2 gera [H | [T concat L2]].
+    
+          
+   
+
+
+    
+
+
+    
+    
+
+
+
+
